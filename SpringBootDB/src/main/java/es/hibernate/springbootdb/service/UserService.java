@@ -14,8 +14,6 @@ import java.util.List;
 @Service
 public class UserService {
 
-
-
     @Autowired
     private UserRepository userRepository;
 
@@ -23,6 +21,8 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User createUser(User user) {
+        System.out.println("Creating user with username: " + user.getUserUsername());
+        System.out.println("Creating user with email: " + user.getUserEmail());
 
         String salt = SecurityUtils.generateSalt();
         String encodedPassword = SecurityUtils.encodePassword(user.getUserPassword(), salt);
@@ -30,7 +30,10 @@ public class UserService {
         user.setUserSalt(salt);
         user.setUserPassword(encodedPassword);
 
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        System.out.println("Saved user ID: " + savedUser.getUserId());
+        return savedUser;
     }
 
     public List<User> getAllUsers() {
@@ -45,6 +48,11 @@ public class UserService {
         User user = userRepository.findByUserUsername(usernameOrEmail);
         if (user == null) {
             user = userRepository.findByUserEmail(usernameOrEmail);
+        }
+        if (user == null) {
+            System.out.println("User not found with username or email: " + usernameOrEmail);
+        } else {
+            System.out.println("User found with username or email: " + user.getUserUsername());
         }
         return user;
     }

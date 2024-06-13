@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -20,6 +19,7 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String userUsername;
+
     @Column(nullable = false, unique = true)
     private String userEmail;
 
@@ -38,4 +38,16 @@ public class User {
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime userLastSeen;
 
+    public User(Long userId, String userUsername, String userEmail, String userPassword, String userSalt, LocalDate userDob, Integer userGender, Float userHeight, Float userWeight, LocalDateTime userLastSeen) {
+        this.userId = userId;
+        this.userUsername = userUsername;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userSalt = userSalt;
+        this.userDob = userDob;
+        this.userGender = userGender;
+        this.userHeight = userHeight;
+        this.userWeight = userWeight;
+        this.userLastSeen = userLastSeen;
+    }
 }

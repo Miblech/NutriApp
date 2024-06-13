@@ -42,7 +42,15 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return doGenerateToken(userDetails.getUsername());
+        System.out.println("User Details: " + userDetails);
+        System.out.println("Username : " + userDetails.getUsername());
+        System.out.println("Password : " + userDetails.getPassword());
+        return Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
     }
 
     private String doGenerateToken(String subject) {
