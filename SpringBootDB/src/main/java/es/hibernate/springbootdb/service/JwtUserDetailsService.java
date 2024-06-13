@@ -1,7 +1,6 @@
 package es.hibernate.springbootdb.service;
 
 import es.hibernate.springbootdb.entity.User;
-import es.hibernate.springbootdb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,13 +13,13 @@ import java.util.ArrayList;
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserEmail(username);
+    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+        User user = userService.getUserByUsernameOrEmail(usernameOrEmail);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new UsernameNotFoundException("User not found with username or email: " + usernameOrEmail);
         }
         return new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getUserPassword(),
                 new ArrayList<>());

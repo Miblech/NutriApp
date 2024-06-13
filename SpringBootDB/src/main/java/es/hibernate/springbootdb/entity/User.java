@@ -18,13 +18,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @Column(nullable = false, unique = true)
     private String userUsername;
+    @Column(nullable = false, unique = true)
     private String userEmail;
+
     private String userPassword;
+
     private String userSalt;
+
     private LocalDate userDob;
+
     private Integer userGender;
+
     private Float userHeight;
+
     private Float userWeight;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

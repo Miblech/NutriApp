@@ -3,6 +3,7 @@ package es.hibernate.springbootdb.service;
 import es.hibernate.springbootdb.entity.User;
 import es.hibernate.springbootdb.repository.UserRepository;
 import es.hibernate.springbootdb.security.SecurityUtils;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Getter
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User createUser(User user) {
@@ -37,6 +39,19 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    public User getUserByUsernameOrEmail(String usernameOrEmail) {
+        User user = userRepository.findByUserUsername(usernameOrEmail);
+        if (user == null) {
+            user = userRepository.findByUserEmail(usernameOrEmail);
+        }
+        return user;
+    }
+
+    public String getSaltByUsernameOrEmail(String usernameOrEmail) {
+        User user = getUserByUsernameOrEmail(usernameOrEmail);
+        return user != null ? user.getUserSalt() : null;
     }
 
     public User updateUser(Long id, User updatedUser) {
@@ -76,5 +91,10 @@ public class UserService {
         } else {
             return false;
         }
+    }
+
+    public boolean validatePassword(String rawPassword, User user) {
+        String saltedPassword = rawPassword + user.getUserSalt();
+        return passwordEncoder.matches(saltedPassword, user.getUserPassword());
     }
 }
