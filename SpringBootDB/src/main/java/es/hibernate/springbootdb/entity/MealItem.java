@@ -1,7 +1,11 @@
 package es.hibernate.springbootdb.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "meal_items")
 public class MealItem {
@@ -17,5 +21,13 @@ public class MealItem {
     @ManyToOne
     @JoinColumn(name = "food_item_id")
     private Food food;
-}
 
+    private Float weight;
+
+    public MealItem(DailyLog dailyLog, Food food, Float weight) {
+        this.id = new MealItemKey(dailyLog.getLogId(), food.getId());
+        this.dailyLog = dailyLog;
+        this.food = food;
+        this.weight = weight;
+    }
+}

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,5 +25,7 @@ public class DailyLog {
     private LocalDateTime timestamp;
 
     private String mealType;
-    private Long foodItemId;
+
+    @OneToMany(mappedBy = "dailyLog", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MealItem> mealItems;
 }

@@ -122,5 +122,48 @@ public class Food {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public ScaledFoodDTO toScaledFoodDTO(Float weight) {
+        return new ScaledFoodDTO(
+                this.category,
+                this.description,
+                this.nutrientDataBankNumber,
+                this.alphaCarotene != null ? Math.round(this.alphaCarotene * weight / 100) : null,
+                this.betaCarotene != null ? Math.round(this.betaCarotene * weight / 100) : null,
+                this.betaCryptoxanthin != null ? Math.round(this.betaCryptoxanthin * weight / 100) : null,
+                this.carbohydrate != null ? this.carbohydrate * weight / 100 : null,
+                this.cholesterol != null ? Math.round(this.cholesterol * weight / 100) : null,
+                this.choline != null ? this.choline * weight / 100 : null,
+                this.fiber != null ? this.fiber * weight / 100 : null,
+                this.luteinAndZeaxanthin != null ? Math.round(this.luteinAndZeaxanthin * weight / 100) : null,
+                this.lycopene != null ? Math.round(this.lycopene * weight / 100) : null,
+                this.niacin != null ? this.niacin * weight / 100 : null,
+                this.protein != null ? this.protein * weight / 100 : null,
+                this.retinol != null ? Math.round(this.retinol * weight / 100) : null,
+                this.riboflavin != null ? this.riboflavin * weight / 100 : null,
+                this.selenium != null ? this.selenium * weight / 100 : null,
+                this.sugarTotal != null ? this.sugarTotal * weight / 100 : null,
+                this.thiamin != null ? this.thiamin * weight / 100 : null,
+                this.water != null ? this.water * weight / 100 : null,
+                this.monosaturatedFat != null ? this.monosaturatedFat * weight / 100 : null,
+                this.polysaturatedFat != null ? this.polysaturatedFat * weight / 100 : null,
+                this.saturatedFat != null ? this.saturatedFat * weight / 100 : null,
+                this.totalLipid != null ? this.totalLipid * weight / 100 : null,
+                this.calcium != null ? Math.round(this.calcium * weight / 100) : null,
+                this.copper != null ? this.copper * weight / 100 : null,
+                this.iron != null ? this.iron * weight / 100 : null,
+                this.magnesium != null ? Math.round(this.magnesium * weight / 100) : null,
+                this.phosphorus != null ? Math.round(this.phosphorus * weight / 100) : null,
+                this.potassium != null ? Math.round(this.potassium * weight / 100) : null,
+                this.sodium != null ? Math.round(this.sodium * weight / 100) : null,
+                this.zinc != null ? this.zinc * weight / 100 : null,
+                this.vitaminARae != null ? Math.round(this.vitaminARae * weight / 100) : null,
+                this.vitaminB12 != null ? this.vitaminB12 * weight / 100 : null,
+                this.vitaminB6 != null ? this.vitaminB6 * weight / 100 : null,
+                this.vitaminC != null ? this.vitaminC * weight / 100 : null,
+                this.vitaminE != null ? this.vitaminE * weight / 100 : null,
+                this.vitaminK != null ? this.vitaminK * weight / 100 : null
+        );
+    }
 }
 

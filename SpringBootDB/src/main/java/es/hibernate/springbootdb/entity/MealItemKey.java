@@ -13,5 +13,4 @@ import java.io.Serializable;
 public class MealItemKey implements Serializable {
     private Long logId;
     private Long foodItemId;
-
 }
