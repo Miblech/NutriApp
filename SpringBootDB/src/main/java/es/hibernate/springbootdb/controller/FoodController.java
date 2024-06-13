@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/foods")
+@RequestMapping("/api/foods")
 public class FoodController {
 
     @Autowired
@@ -17,11 +17,6 @@ public class FoodController {
     @GetMapping
     public List<Food> getAllFoods() {
         return foodRepository.findAll();
-    }
-
-    @PostMapping
-    public Food createFood(@RequestBody Food food) {
-        return foodRepository.save(food);
     }
 
     @GetMapping("/category/{category}")

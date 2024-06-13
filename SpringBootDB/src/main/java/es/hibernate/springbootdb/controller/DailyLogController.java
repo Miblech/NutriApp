@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/logs")
+@RequestMapping("/api/logs")
 public class DailyLogController {
 
     @Autowired
