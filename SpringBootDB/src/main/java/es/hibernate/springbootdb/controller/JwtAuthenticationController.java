@@ -6,9 +6,14 @@ import es.hibernate.springbootdb.security.JwtTokenUtil;
 import es.hibernate.springbootdb.service.JwtUserDetailsService;
 import es.hibernate.springbootdb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -28,13 +33,25 @@ public class JwtAuthenticationController {
     private UserService userService;
 
     @PostMapping("/authenticate")
-    public String createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-        User user = userService.getUserByUsernameOrEmail(authenticationRequest.getUsername());
-        if (user == null || !userService.validatePassword(authenticationRequest.getPassword(), user)) {
-            throw new Exception("INVALID_CREDENTIALS");
-        }
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
+        try {
+            User user = userService.getUserByUsernameOrEmail(authenticationRequest.getUsername());
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+            }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        return jwtTokenUtil.generateToken(userDetails);
+            if (!userService.validatePassword(authenticationRequest.getPassword(), user)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect password");
+            }
+
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+            final String token = jwtTokenUtil.generateToken(userDetails);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("token", token);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
+        }
     }
 }
