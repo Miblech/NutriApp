@@ -24,22 +24,22 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
         return userService.updateUser(id, updatedUser);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
 
-    @PutMapping("/{userId}/renew-password")
+    @PutMapping("/renew-password/{userId}")
     public boolean renewPassword(@PathVariable Long userId,
                                  @RequestParam String oldPassword,
                                  @RequestParam String newPassword) {
