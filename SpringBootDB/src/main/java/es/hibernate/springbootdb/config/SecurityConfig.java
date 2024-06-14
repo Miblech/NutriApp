@@ -1,5 +1,7 @@
-package es.hibernate.springbootdb.security;
+package es.hibernate.springbootdb.config;
 
+import es.hibernate.springbootdb.security.JwtAuthenticationEntryPoint;
+import es.hibernate.springbootdb.security.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,9 +29,15 @@ public class SecurityConfig {
         this.jwtUserDetailsService = jwtUserDetailsService;
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()
+                );
+                /*
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/authenticate", "/api/users/register",
@@ -43,7 +51,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);*/
         return http.build();
     }
 

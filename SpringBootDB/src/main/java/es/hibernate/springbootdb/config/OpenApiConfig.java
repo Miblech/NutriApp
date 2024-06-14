@@ -1,4 +1,4 @@
-package es.hibernate.springbootdb.openapi;
+package es.hibernate.springbootdb.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
