@@ -124,6 +124,7 @@ public class Food {
     }
 
     public ScaledFoodDTO toScaledFoodDTO(Float weight) {
+
         return new ScaledFoodDTO(
                 this.category,
                 this.description,

@@ -34,10 +34,27 @@ public class DailyLogController {
         return dailyLogService.getLogsByUser(userDetails.getUsername());
     }
 
+    /**
+     * Retrieves the daily logs for the current user for today.
+     *
+     * @param  userDetails  the user details of the authenticated user
+     * @return              a list of daily logs for the current user for today
+     */
     @GetMapping("/user/{date}")
     public List<DailyLog> getUserLogsByDate(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String date) {
         LocalDate logDate = LocalDate.parse(date);
         return dailyLogService.getLogsByUserAndDate(userDetails.getUsername(), logDate);
+    }
+
+    @GetMapping("/user/today")
+    public List<DailyLog> getUserLogsForToday(@AuthenticationPrincipal UserDetails userDetails) {
+        LocalDate today = LocalDate.now();
+        return dailyLogService.getLogsByUserAndDate(userDetails.getUsername(), today);
+    }
+
+    @GetMapping("/user/logs/count")
+    public long getUserLogsCount(@AuthenticationPrincipal UserDetails userDetails) {
+        return dailyLogService.getLogsByUser(userDetails.getUsername()).size();
     }
 
     @GetMapping("/{id}/summary")
@@ -64,4 +81,6 @@ public class DailyLogController {
     public void deleteLog(@PathVariable Long id) {
         dailyLogService.deleteLog(id);
     }
+
+
 }

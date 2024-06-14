@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScaledFoodDTO {
+
     private String category;
     private String description;
     private Integer nutrientDataBankNumber;

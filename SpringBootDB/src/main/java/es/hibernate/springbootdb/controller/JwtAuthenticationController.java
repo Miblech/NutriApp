@@ -49,6 +49,9 @@ public class JwtAuthenticationController {
 
             Map<String, String> response = new HashMap<>();
             response.put("token", token);
+            response.put("userId", String.valueOf(user.getUserId()));
+            response.put("email", user.getUserEmail());
+            response.put("username", user.getUserUsername());
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
