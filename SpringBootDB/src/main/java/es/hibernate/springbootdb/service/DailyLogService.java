@@ -49,6 +49,15 @@ public class DailyLogService {
         }
     }
 
+    public NutrientSummary getTotalNutrientSummaryForUser(String username) {
+        List<DailyLog> logs = dailyLogRepository.findByUserUserUsername(username);
+        NutrientSummary totalSummary = new NutrientSummary();
+        for (DailyLog log : logs) {
+            totalSummary.addNutrients(log.getNutrientSummary());
+        }
+        return totalSummary;
+    }
+
     public NutrientSummary getUserLogSummaryByPeriod(String username, String period) {
         List<DailyLog> logs;
         LocalDate now = LocalDate.now();
@@ -104,5 +113,9 @@ public class DailyLogService {
 
     public void deleteLog(Long id) {
         dailyLogRepository.deleteById(id);
+    }
+
+    public void deleteAllLogsByUser(String username) {
+        dailyLogRepository.deleteByUserUserUsername(username);
     }
 }

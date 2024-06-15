@@ -34,12 +34,6 @@ public class DailyLogController {
         return dailyLogService.getLogsByUser(userDetails.getUsername());
     }
 
-    /**
-     * Retrieves the daily logs for the current user for today.
-     *
-     * @param  userDetails  the user details of the authenticated user
-     * @return              a list of daily logs for the current user for today
-     */
     @GetMapping("/user/{date}")
     public List<DailyLog> getUserLogsByDate(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String date) {
         LocalDate logDate = LocalDate.parse(date);
@@ -60,6 +54,11 @@ public class DailyLogController {
     @GetMapping("/{id}/summary")
     public NutrientSummary getLogSummary(@PathVariable Long id) {
         return dailyLogService.getLogSummary(id);
+    }
+
+    @GetMapping("/user/summary")
+    public NutrientSummary getTotalNutrientSummaryForUser(@AuthenticationPrincipal UserDetails userDetails) {
+        return dailyLogService.getTotalNutrientSummaryForUser(userDetails.getUsername());
     }
 
     @GetMapping("/user/{period}/summary")
@@ -83,4 +82,8 @@ public class DailyLogController {
     }
 
 
+    @DeleteMapping("/user")
+    public void deleteAllUserLogs(@AuthenticationPrincipal UserDetails userDetails) {
+        dailyLogService.deleteAllLogsByUser(userDetails.getUsername());
+    }
 }

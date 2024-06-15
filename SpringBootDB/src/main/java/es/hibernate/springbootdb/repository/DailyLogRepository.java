@@ -14,4 +14,6 @@ public interface DailyLogRepository extends JpaRepository<DailyLog, Long> {
     List<DailyLog> findByUserUserUsernameAndDate(String username, LocalDate date);
 
     List<DailyLog> findByUserUserUsernameAndDateBetween(String username, LocalDate startDate, LocalDate endDate);
+
+    void deleteByUserUserUsername(String username);
 }
