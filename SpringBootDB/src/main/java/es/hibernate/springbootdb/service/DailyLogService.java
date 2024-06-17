@@ -6,6 +6,7 @@ import es.hibernate.springbootdb.repository.FoodRepository;
 import es.hibernate.springbootdb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -38,6 +39,10 @@ public class DailyLogService {
 
     public List<DailyLog> getLogsByUserAndDate(String username, LocalDate date) {
         return dailyLogRepository.findByUserUserUsernameAndDate(username, date);
+    }
+
+    public DailyLog getDailyLogById(Long id) {
+        return dailyLogRepository.findById(id).orElseThrow(() -> new RuntimeException("DailyLog not found"));
     }
 
     public NutrientSummary getLogSummary(Long logId) {
@@ -115,6 +120,7 @@ public class DailyLogService {
         dailyLogRepository.deleteById(id);
     }
 
+    @Transactional
     public void deleteAllLogsByUser(String username) {
         dailyLogRepository.deleteByUserUserUsername(username);
     }

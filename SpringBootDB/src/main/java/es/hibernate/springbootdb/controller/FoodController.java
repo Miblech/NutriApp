@@ -3,6 +3,8 @@ package es.hibernate.springbootdb.controller;
 import es.hibernate.springbootdb.entity.Food;
 import es.hibernate.springbootdb.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,8 @@ public class FoodController {
         return foodRepository.findById(id).orElse(null);
     }
 
-    @GetMapping("/search")
-    public List<Food> searchFoodsByDescription(@RequestParam String description) {
+    @GetMapping("/search/{description}")
+    public List<Food> searchFoodsByDescription(@PathVariable String description) {
         return foodRepository.findByDescriptionContainingIgnoreCase(description);
     }
 

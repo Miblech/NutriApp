@@ -23,6 +23,11 @@ public class DailyLogController {
         return dailyLogService.getAllLogs();
     }
 
+    @GetMapping("/search/{id}")
+    public DailyLog getDailyLogById(@PathVariable Long id) {
+        return dailyLogService.getDailyLogById(id);
+    }
+
     @GetMapping("/{date}")
     public List<DailyLog> getLogsByDate(@PathVariable String date) {
         LocalDate logDate = LocalDate.parse(date);
@@ -76,7 +81,7 @@ public class DailyLogController {
         return dailyLogService.addFoodToDailyLog(dailyLogId, foodId, weight);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteLog(@PathVariable Long id) {
         dailyLogService.deleteLog(id);
     }

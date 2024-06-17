@@ -32,16 +32,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                /*
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
-                );*/
-                .csrf(csrf -> csrf.disable())
+        http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/authenticate", "/api/users/register",
-                                "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/foods/**", "/api/foods/category/{category}").permitAll()
+                                "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
+                                "/api/foods/search/{description}", "/api/foods/category/{category}", "/api/logs/{dailyLogId}/addFood")
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex
@@ -52,6 +48,10 @@ public class SecurityConfig {
                 );
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // Log the security configuration
+        System.out.println("Security configuration loaded successfully.");
+
         return http.build();
     }
 

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/NutriAppSpringBoot.iml" filepath="$PROJECT_DIR$/.idea/NutriAppSpringBoot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringBootDB/SpringBootDB.iml" filepath="$PROJECT_DIR$/SpringBootDB/SpringBootDB.iml" />
     </modules>
   </component>
 </project>
