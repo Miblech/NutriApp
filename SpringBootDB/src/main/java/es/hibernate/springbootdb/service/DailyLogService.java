@@ -41,6 +41,15 @@ public class DailyLogService {
         return dailyLogRepository.findByUserUserUsernameAndDate(username, date);
     }
 
+    public NutrientSummary getNutrientSummaryForDate(String username, LocalDate date) {
+        List<DailyLog> logs = dailyLogRepository.findByUserUserUsernameAndDate(username, date);
+        NutrientSummary summary = new NutrientSummary();
+        for (DailyLog log : logs) {
+            summary.addNutrients(log.getNutrientSummary());
+        }
+        return summary;
+    }
+
     public DailyLog getDailyLogById(Long id) {
         return dailyLogRepository.findById(id).orElseThrow(() -> new RuntimeException("DailyLog not found"));
     }
@@ -63,30 +72,7 @@ public class DailyLogService {
         return totalSummary;
     }
 
-    public NutrientSummary getUserLogSummaryByPeriod(String username, String period) {
-        List<DailyLog> logs;
-        LocalDate now = LocalDate.now();
 
-        switch (period.toLowerCase()) {
-            case "day":
-                logs = dailyLogRepository.findByUserUserUsernameAndDate(username, now);
-                break;
-            case "week":
-                logs = dailyLogRepository.findByUserUserUsernameAndDateBetween(username, now.minusWeeks(1), now);
-                break;
-            case "month":
-                logs = dailyLogRepository.findByUserUserUsernameAndDateBetween(username, now.minusMonths(1), now);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid period: " + period);
-        }
-
-        NutrientSummary summary = new NutrientSummary();
-        for (DailyLog log : logs) {
-            summary.addNutrients(log.getNutrientSummary());
-        }
-        return summary;
-    }
 
     public DailyLog createLog(DailyLog log, String username) {
         System.out.println("Username: " + username);
@@ -123,5 +109,52 @@ public class DailyLogService {
     @Transactional
     public void deleteAllLogsByUser(String username) {
         dailyLogRepository.deleteByUserUserUsername(username);
+    }
+
+    public List<DailyLog> getLogsByUserAndPeriod(String username, String period) {
+        LocalDate now = LocalDate.now();
+        LocalDate startDate;
+
+        switch (period.toLowerCase()) {
+            case "day":
+                startDate = now;
+                break;
+            case "week":
+                startDate = now.minusWeeks(1);
+                break;
+            case "month":
+                startDate = now.minusMonths(1);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid period: " + period);
+        }
+
+        return dailyLogRepository.findByUserUserUsernameAndDateBetween(username, startDate, now);
+    }
+
+
+    public NutrientSummary getUserLogSummaryByPeriod(String username, String period) {
+        List<DailyLog> logs;
+        LocalDate now = LocalDate.now();
+
+        switch (period.toLowerCase()) {
+            case "day":
+                logs = dailyLogRepository.findByUserUserUsernameAndDate(username, now);
+                break;
+            case "week":
+                logs = dailyLogRepository.findByUserUserUsernameAndDateBetween(username, now.minusWeeks(1), now);
+                break;
+            case "month":
+                logs = dailyLogRepository.findByUserUserUsernameAndDateBetween(username, now.minusMonths(1), now);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid period: " + period);
+        }
+
+        NutrientSummary summary = new NutrientSummary();
+        for (DailyLog log : logs) {
+            summary.addNutrients(log.getNutrientSummary());
+        }
+        return summary;
     }
 }

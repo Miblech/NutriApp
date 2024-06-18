@@ -28,21 +28,21 @@ public class DailyLogController {
         return dailyLogService.getDailyLogById(id);
     }
 
-    @GetMapping("/{date}")
-    public List<DailyLog> getLogsByDate(@PathVariable String date) {
-        LocalDate logDate = LocalDate.parse(date);
-        return dailyLogService.getLogsByDate(logDate);
-    }
-
-    @GetMapping("/user")
+    @GetMapping("/user/get")
     public List<DailyLog> getUserLogs(@AuthenticationPrincipal UserDetails userDetails) {
         return dailyLogService.getLogsByUser(userDetails.getUsername());
     }
 
-    @GetMapping("/user/{date}")
+    @GetMapping("/user/log/{date}")
     public List<DailyLog> getUserLogsByDate(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String date) {
         LocalDate logDate = LocalDate.parse(date);
         return dailyLogService.getLogsByUserAndDate(userDetails.getUsername(), logDate);
+    }
+
+    @GetMapping("/user/summary/{date}")
+    public NutrientSummary getUserLogSummaryForDate(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String date) {
+        LocalDate logDate = LocalDate.parse(date);
+        return dailyLogService.getNutrientSummaryForDate(userDetails.getUsername(), logDate);
     }
 
     @GetMapping("/user/today")
@@ -56,7 +56,7 @@ public class DailyLogController {
         return dailyLogService.getLogsByUser(userDetails.getUsername()).size();
     }
 
-    @GetMapping("/{id}/summary")
+    @GetMapping("/summary/{id}")
     public NutrientSummary getLogSummary(@PathVariable Long id) {
         return dailyLogService.getLogSummary(id);
     }
@@ -66,9 +66,14 @@ public class DailyLogController {
         return dailyLogService.getTotalNutrientSummaryForUser(userDetails.getUsername());
     }
 
-    @GetMapping("/user/{period}/summary")
+    @GetMapping("/user/summary/period/{period}")
     public NutrientSummary getUserLogSummaryByPeriod(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String period) {
         return dailyLogService.getUserLogSummaryByPeriod(userDetails.getUsername(), period);
+    }
+
+    @GetMapping("/user/logs/{period}")
+    public List<DailyLog> getLogsByUserAndPeriod(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String period) {
+        return dailyLogService.getLogsByUserAndPeriod(userDetails.getUsername(), period);
     }
 
     @PostMapping
@@ -87,8 +92,9 @@ public class DailyLogController {
     }
 
 
-    @DeleteMapping("/user")
+    @DeleteMapping("/user/delete")
     public void deleteAllUserLogs(@AuthenticationPrincipal UserDetails userDetails) {
         dailyLogService.deleteAllLogsByUser(userDetails.getUsername());
     }
+
 }

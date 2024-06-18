@@ -35,7 +35,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/authenticate", "/api/users/register",
-                                "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
+                                "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/foods/**",
                                 "/api/foods/search/{description}", "/api/foods/category/{category}", "/api/logs/{dailyLogId}/addFood")
                         .permitAll()
                         .anyRequest().authenticated()
