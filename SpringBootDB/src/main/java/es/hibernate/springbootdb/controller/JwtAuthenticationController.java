@@ -5,6 +5,9 @@ import es.hibernate.springbootdb.entity.User;
 import es.hibernate.springbootdb.security.JwtTokenUtil;
 import es.hibernate.springbootdb.service.JwtUserDetailsService;
 import es.hibernate.springbootdb.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +35,11 @@ public class JwtAuthenticationController {
     @Autowired
     private UserService userService;
 
+    @Operation(summary = "Authenticate user / Login", description = "Authenticate user / Login")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
         try {
