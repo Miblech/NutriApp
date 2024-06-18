@@ -27,6 +27,7 @@ public class DailyLogController {
     @Operation(summary = "Get all logs", description = "Get all logs")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Not Authorized"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @GetMapping

@@ -35,7 +35,7 @@ public class JwtAuthenticationController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Authenticate user / Login", description = "Authenticate user / Login")
+    @Operation(summary = "Authenticate user / Login.", description = "Authenticate user / Login")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")

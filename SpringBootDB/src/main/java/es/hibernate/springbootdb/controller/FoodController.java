@@ -21,7 +21,7 @@ public class FoodController {
     @Autowired
     private FoodRepository foodRepository;
 
-    @Operation(summary = "Get all foods", description = "Retrieve a list of all foods")
+    @Operation(summary = "Get all foods in Database", description = "Retrieve a list of all foods")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Successfully retrieved list of foods"),
             @ApiResponse(responseCode = "500", description = "Internal server error")

@@ -27,7 +27,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Get all users", description = "Retrieve a list of all users")
+    @Operation(summary = "Get all users in Database", description = "Retrieve a list of all users")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Successfully retrieved users"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
