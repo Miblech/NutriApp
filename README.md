@@ -81,3 +81,9 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Contact
+
+Your Name - @twitter_handle - nombre2727@gmail.com
+
+Project Link: [https://github.com/Miblech/NutriAppJava](https://github.com/Miblech/NutriAppJava)
