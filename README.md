@@ -79,9 +79,5 @@ Check [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swag
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-Check [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/) to see all Points
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
