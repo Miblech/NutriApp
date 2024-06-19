@@ -36,10 +36,15 @@ The easiest way to run the application is by using Docker Compose. This will set
 
 Navigate to the docker directory:
 
+```cd docker```
+
 Run Docker Compose:
 
 ```diff bash docker-compose up -d```
 
+Run App:
+
+```java -cp . SpringBootDbApplication```
 
 Accessing the Application
 Once the containers are up and running, the application should be accessible at:
@@ -61,6 +66,11 @@ Here are some of the main endpoints provided by the application:
 - GET `/api/foods/{id}`: Retrieves a specific food item by ID.
 - PUT `/api/foods/{id}`: Updates a specific food item by ID.
 - DELETE `/api/foods/{id}`: Deletes a specific food item by ID.
+
+Check [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/) to see all Points
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 Check [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/) to see all Points
 
