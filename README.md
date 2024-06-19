@@ -3,7 +3,7 @@
 NutriAppSpringBoot is a Spring Boot application designed to manage nutritional data with a MySQL database. This project includes Docker setup for easy deployment and management of the application and its dependencies.
 
 ## Table of Contents
-- [Prerequisites](#prerequisites)
+- [Prerequisites](PREREQUISITES.md)
 - [Installation](#installation)
 - [Running the Application](#running-the-application)
 - [Project Structure](#project-structure)
